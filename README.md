@@ -5,6 +5,8 @@ Script para configurar o ambiente de trabalho no Ubuntu. Testado na última vez 
 curl -sSL https://raw.githubusercontent.com/raulpacheco2k/Ubuntu-Work-Environment/refs/heads/main/configure_ubuntu_work_environment.sh | bash
 ```
 
+ou
+
 ```bash
 git clone https://github.com/raulpacheco2k/Ubuntu-Work-Environment.git
 cd Ubuntu-Work-Environment
