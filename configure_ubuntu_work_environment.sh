@@ -21,7 +21,6 @@
     "anki-ppd"
     "btop"
     "discord"
-    "docker"
     "fast"
     "libreoffice"
     "nordpass"
@@ -37,10 +36,6 @@
     #"ludo"
     #"notepadqq"
     #"notes"
-    #"notion-calendar-snap"
-    #"ppsspp-emu"
-    #"slack-term"
-    #"slack"
     #"telegram-cli"
     #"telegram-desktop"
     #"termius-app"
@@ -58,11 +53,11 @@
 
   echo "Installing SNAP packages..."
   sudo snap install code --classic
-  sudo snap install eclipse --classic
-  sudo snap install netbeans --classic
   sudo snap install obsidian --classic
-  sudo snap install sublime-merge --classic
   sudo snap install sublime-text --classic
+  #sudo snap install eclipse --classic
+  #sudo snap install netbeans --classic
+  #sudo snap install sublime-merge --classic
   
   for snap_program in "${snap_programs[@]}"; do
     sudo snap install "$snap_program"
