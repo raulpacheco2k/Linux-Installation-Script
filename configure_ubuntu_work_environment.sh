@@ -6,11 +6,13 @@
   echo "Updating repositories..."
   sudo apt update -y
 
-  gsettings set org.gnome.desktop.interface enable-animations false
+  #gsettings set org.gnome.desktop.interface enable-animations false
   gsettings set org.gnome.nautilus.preferences default-sort-order 'type'
+  gsettings set org.gnome.nautilus.preferences show-hidden-files true
+  gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
+
   
   apt_programs=(
-    curl
     neofetch
     net-tools
     tree
@@ -18,29 +20,22 @@
   )
 
   snap_programs=(
-    "anki-ppd"
     "btop"
     "discord"
-    "fast"
     "libreoffice"
     "nordpass"
     "notion-snap-reborn"
-    "obs-studio"
-    "postman"
     "spotify"
     "thunderbird"
-    "xmind"
+    #"fast"
+    #"anki-ppd"
     #"buka"
     #"deckboard"
     #"insomnia"
+    #"postman"
     #"ludo"
-    #"notepadqq"
-    #"notes"
     #"telegram-cli"
-    #"telegram-desktop"
     #"termius-app"
-    #"typora"
-    #"vestin"
     #"weka"
   )
 
@@ -55,9 +50,6 @@
   sudo snap install code --classic
   sudo snap install obsidian --classic
   sudo snap install sublime-text --classic
-  #sudo snap install eclipse --classic
-  #sudo snap install netbeans --classic
-  #sudo snap install sublime-merge --classic
   
   for snap_program in "${snap_programs[@]}"; do
     sudo snap install "$snap_program"
@@ -71,18 +63,23 @@
   rm google-chrome-stable_current_amd64.deb
 
   echo "Installing Jetbrains Toolbox..."
-  wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-2.4.0.32175.tar.gz
+  wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-2.5.2.35332.tar.gz
 
-  #echo "Configuring Docker to work without sudo permission..."
-  #sudo addgroup --system docker
-  #sudo adduser $USER docker
-  #newgrp docker
-  #sudo snap disable docker
-  #sudo snap enable docker
+  echo "Installing Docker"
+  sudo apt install ca-certificates curl
+  sudo install -m 0755 -d /etc/apt/keyrings
+  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  sudo chmod a+r /etc/apt/keyrings/docker.asc
+  echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  sudo apt update
+  sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-  echo "Installing AI..."
+  echo "Installing Ollama..."
   curl -fsSL https://ollama.com/install.sh | sh
-  ollama run llama3
+  ollama run llama3.2:3b
 
   echo "Configuring Git..."
   git config --global credential.helper store
